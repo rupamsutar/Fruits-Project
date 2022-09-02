@@ -7,10 +7,7 @@ mongoose.connect("mongodb://localhost:27017/fruitsDB")
 
 //insert objects
 const fruitSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: [true, "Please enter the name !"]
-  },
+  name: String,
   rating:{
     type: Number,
     min: 1,
@@ -19,14 +16,14 @@ const fruitSchema = new mongoose.Schema({
   review: String
 });
 
-const Fruit = mongoose.model("Fruit", fruitSchema);
-
-const fruit = new Fruit ({
-  rating:4,
-  review:"Sour"
-});
-
-fruit.save();
+ const Fruit = mongoose.model("Fruit", fruitSchema);
+//
+// const fruit = new Fruit ({
+//   rating:4,
+//   review:"Sour"
+// });
+//
+// fruit.save();
 
 // const kiwi = new Fruit ({
 //   name:"Kiwi",
@@ -78,5 +75,23 @@ Fruit.find(function(err, fruits) {
     for (var i = 0; i < fruits.length; i++) {
       console.log(fruits[i].name)
     };
+  };
+});
+
+
+
+Fruit.updateOne({_id: "631227b189a502696b3d59ad"}, {name: "Peach"}, function(err) {
+  if(err) {
+    console.log(err);
+  } else {
+    console.log("successfully updated the document");
+  };
+});
+
+Fruit.deleteOne({name: "Peach"}, function(err) {
+  if(err) {
+    console.log(err);
+  } else {
+    console.log("Successfully deleted the document");
   };
 });
